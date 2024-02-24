@@ -1,0 +1,17 @@
+version: '3.7' # Docker Compose Version
+services: # List of service
+  item-app: # Service for the application
+    image: ghcr.io/hakimfauzi23/item-app:v1 # use image from Github Container Registry
+    ports: # Port Configuration
+      - 80:8080 ## Expose 8080 port of container to 80 port of HOST
+    restart: always # Restart Policy
+    depends_on: 
+      - item-db
+    links:
+      - item-db
+  item-db: # Service for Mongodb
+    image: mongo:3 # Use Image mongo with tag version 3
+    volumes: # mongodb volumes configuration
+      - app-db:/data/db
+volumes: ## Volumes setup
+  app-db:
